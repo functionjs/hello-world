@@ -1,3 +1,6 @@
 # hello-world
 That is the branch of test repo 11
-That branch was written by me to test developing capabilities of git for functionjs project
+This line from branch2 
+was written 
+and corrected by me to take more tests on
+developing capabilities of git for functionjs project
