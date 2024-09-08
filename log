@@ -1,0 +1,73 @@
+
+ Generate Maze 8x8!
+
+  #  #  #  #  #  #  #  #
+  #  #  #  #  #  .  #  #
+  #  #  #  #  #  #  #  #
+  #  #  #  #  #  #  #  #
+  #  #  #  #  *  #  #  #
+  #  #  #  #  #  #  #  #
+  #  #  #  #  #  #  #  #
+  #  #  #  #  #  #  #  #
+
+ Hello BFS +Greedy Search Labirint!
+Точка старта в лабиринте: (6,1)
+
+    #  #  #  #  #  #  #  #
+    #  .  .  .+100  .  .  #
+    #  .  .  .  .  .  .  #
+    #  .  .  .  .  .  .  #
+    #  .  .  .  .  .  .  #
+    #  .  #  #  .  .  .  #
+    #  *  .  .  .  .  .  #
+    #  #  #  #  #  #  #  #
+Выход из этого лабиринта - в точке (1,4)
+
+ greedy Wave Flood step ------------------------
+
+    #  #  #  #  #  #  #  #
+    # +2 +1  .  #  #  #  #
+    # +3 +2 +1  .  #  #  #
+    # +4 +3 +2 +1  .  #  #
+    # +5 +4 +3 +2 +1  .  #
+    # +6  #  # +3 +2 +1  #
+    #  * +6 +5 +4 +3 +2  #
+    #  #  #  #  #  #  #  #
+
+ gradient Search Path step ------------------------
+
+Gradient Search path:
+(6,1)-->(5,1)-->(4,1)-->(3,1)-->(2,1)-->(1,1)-->(1,2)-->(2,2)-->(2,3)-->(3,3)-->(3,4)-->(4,4)-->(4,5)-->(5,5)-->(5,6)-->(6,6)-->(6,5)-->(6,4)-->(5,4)--> Stuck! Backtracking.
+(6,4)-->(6,3)-->(6,2)--> Stuck! Backtracking.
+(6,3)--> Stuck! Backtracking.
+(6,4)--> Stuck! Backtracking.
+(6,5)--> Stuck! Backtracking.
+(6,6)--> Stuck! Backtracking.
+(5,6)--> Stuck! Backtracking.
+(5,5)--> Stuck! Backtracking.
+(4,5)--> Stuck! Backtracking.
+(4,4)-->(4,3)-->(4,2)-->(3,2)--> Stuck! Backtracking.
+(4,2)--> Stuck! Backtracking.
+(4,3)--> Stuck! Backtracking.
+(4,4)--> Stuck! Backtracking.
+(3,4)--> Stuck! Backtracking.
+(3,3)--> Stuck! Backtracking.
+(2,3)--> Stuck! Backtracking.
+(2,2)--> Stuck! Backtracking.
+(1,2)--> Stuck! Backtracking.
+(1,1)--> Stuck! Backtracking.
+(2,1)--> Stuck! Backtracking.
+(3,1)--> Stuck! Backtracking.
+(4,1)--> Stuck! Backtracking.
+(5,1)--> Stuck! Backtracking.
+(6,1)--> Stuck! Backtracking.
+No available moves.
+
+    #  #  #  #  #  #  #  #
+    #  *  *  .  #  #  #  #
+    #  *  *  *  .  #  #  #
+    #  *  *  *  *  .  #  #
+    #  *  *  *  *  *  .  #
+    #  *  #  #  *  *  *  #
+    #  *  *  *  *  *  *  #
+    #  #  #  #  #  #  #  #
