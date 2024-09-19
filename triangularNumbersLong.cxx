@@ -3,7 +3,7 @@
 #include <cstring>
 #include <ctime>
 
-//Hello Max! How are you now?
+//Hello All! How are you now?
 
 
 using namespace std;
