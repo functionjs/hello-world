@@ -13,12 +13,12 @@ using  Vi = vector<int>;
 using   VVi = vector<Vi>;
 
 const auto n = 8;
-const int max_dist = n - 1;
+const auto max_dist = n - 1;
 int L[n][n];
 VVi maze;
 bool visited[n][n];    
-int D = 1;
-bool exitFound = false;
+auto D = 1;
+auto exitFound = false;
 int x_0, y_0;
 int x_1, y_1;
 int Dir[4][2] = {
@@ -208,6 +208,21 @@ int Dir[4][2] = {
 }
 
 int main() {
+   /*
+    ((2+11)*(x-100)^3 +7)/(30-10)
+    1. Lucashevich
+       2 11 + x 100 - 3 ^ * 7 + 30 10 - /
+    2. SSA
+       a = 2+11;    
+       b = x-100;
+       f = 30-10;     
+        c =  b^3;
+         d = a*c;  
+          e = d+7;
+           g = e/f;
+         
+   
+   */ 
    cout << "\n Generate Maze 8x8!\n";
     generateMaze();
      printMaze(4, 4);       
