@@ -48,11 +48,11 @@ int Dir[4][2] = {
         void generateMaze(){
                              resizeAndInitializeMaze(n,n);
                              srand(time(0));
+                             for(int k=0; k<(n-2)*(n-2)/2; k++){
                               int startX = rand() % n;
                               int startY = rand() % n;
-                               if(startX % 2==0) startX++;
-                               if(startY % 2==0) startY++;
-                                cravePath(startX, startY);
+                               cravePath(startX, startY);
+                             }  
         }
         void printMaze(int a, int b, int d=0) {
               cout << "\n";
