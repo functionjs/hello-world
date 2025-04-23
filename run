@@ -1,0 +1,2 @@
+#!/bin/bash
+g++ u3r.cpp -fmax-errors=1 && ./a.out < in

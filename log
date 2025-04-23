@@ -1,13 +1,14 @@
 
  Generate Maze 8x8!
+ Intial point for Maze generation: (4,6)
 
   #  #  #  #  #  #  #  #
-  #  #  #  #  #  .  #  #
-  #  #  #  #  #  #  #  #
-  #  #  #  #  #  #  #  #
-  #  #  #  #  *  #  #  #
-  #  #  #  #  #  #  #  #
-  #  #  #  #  #  #  #  #
+  #  #  .  #  .  #  .  #
+  #  .  .  .  .  #  .  #
+  #  #  #  #  .  #  .  #
+  #  .  .  .  *  .  .  #
+  #  #  #  #  #  #  .  #
+  #  .  .  .  .  .  .  #
   #  #  #  #  #  #  #  #
 
  Hello BFS +Greedy Search Labirint!

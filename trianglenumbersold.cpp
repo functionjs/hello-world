@@ -18,27 +18,30 @@ using num  =  int;
 // O(N^2)
 
   // char X[N]={8,7,2};
+  // char * X;
+  // char X[];
+
  // digit X[N]={8,7,2};
  // digit Y[N]={5,3,0};
-Num X = {9,8,7,6,5,4,3,2,1};//{4,3,2,1,5,4,3,2,1};
-Num Y = {4,3,2,1};//{9,8,7,6,5,4,3,2,1};//{9,8,7,6,0,0,0,0,0};
-Num Zero ={0}; 
-Num One={1};
+static Num X = {9,8,7,6,5,4,3,2,1};//{4,3,2,1,5,4,3,2,1};
+static Num Y = {4,3,2,1};//{9,8,7,6,5,4,3,2,1};//{9,8,7,6,0,0,0,0,0};
+static Num Zero ={0}; 
+static Num One={1};
 
-Num qu;
-digit rem;
+static Num qu;
+static digit rem;
 
- Num Z;
- Num C;
+ static Num Z;
+ static Num C;
     
      // DRY = Don't Repeat Yourself
-     void print(Num R, num n=N){
+   static  void print(Num R, num n=N){
                              if(n>N)n=N;
-                              for (num i=0; i<n; i++)cout << (num)R[i]<<" ";
+                              for (num i=0; i<n; i++)cout << (digit)R[i]<<" ";
                                if(n<N)cout<<" ... ";
                                 cout<<endl;
      }
-     void rprint(Num R, num n=N){
+   static   void rprint(Num R, num n=N){
                            if(n>N)n=N;
                             cout<<"[ "; 
                              if(n<N)cout<<" ... ";
@@ -47,7 +50,7 @@ digit rem;
     }
 
 
-     void set0000_(Num R, num n=N){//R[]={0,0,0,...}
+     void set0000_(Num R, const num n=N){//R[]={0,0,0,...}
                                for (num i=0; i<n; i++)R[i] = 0; //  *(R+i) = 0;
      }
      void memset0000_(Num R, num n=N){//R[]={0,0,0,...}
@@ -91,7 +94,7 @@ digit rem;
                                                           Q[i] -= base;
                                                          } 
                                       }    
-            }
+                }
             void add_(Num Q, Num P){  // Q[]+=P[] ; add to long number Q[] long number P[]
                                             Num C; // Carry vector
                                             sum(Q,P);        // 9 9 9 + 9 9 9  = 18 18 18
@@ -110,7 +113,8 @@ digit rem;
                                                    else       carry=0;     
                                           }
             }
-            void multDigits(digit a, digit b,  digit& p, digit& q){ //multiply two digits a,b and return p(least digit of product), q(major digit of product == carry))
+                                                          //digit *p, digit *q  
+            void multDigits(const digit a, const digit b,  digit& p, digit& q){ //multiply two digits a,b and return p(least digit of product), q(major digit of product == carry))
                                                                    num x = a*b;
                                                                     p = x%base;
                                                                     q = x/base;
@@ -180,14 +184,26 @@ digit rem;
           ---
           0 3  -- remainder
 */
+
+/*  Test example for division of long number by digit (divD)
+        0 5 5  -- qoutient
+    5 |(2)7 8  -- whole dividend,  2 -- current dividend, 27 -- next current dividend
+        0    
+        --
+        (2)7     
+        ---
+          (2)8  -- next next current dividend
+          ---
+            (3)  -- remainder
+*/
         void divD(Num Q, digit d,  Num Quot, digit &rem){//  (Q[]/d)->(Quot[],rem)
-                                num q=0; 
+                                num r=0; 
                                  for(int i=N-1; i>=0;i-=1){
-                                     q = q*base + Q[i]; // evaluating current dividend
-                                      Quot[i] = q/d;  // Euclid division -- getting current Quotient digit by dividing current dividend by one digit divisor d
-                                       q%=d;          // Euclid division -- getting current remainder
+                                     r = r*base + Q[i]; // evaluating current dividend
+                                      Quot[i] = r/d;  // Euclid division -- getting current Quotient digit by dividing current dividend by one digit divisor d
+                                       r%=d;          // Euclid division -- getting current remainder
                                  }     
-                                  rem = q;            // last remainder is result too!    
+                                  rem = r;            // last remainder is result too!    
         }
 /*
       123451234
@@ -384,7 +400,7 @@ int b = 0;
  int c = 0;
   double x=(double)a/double(b); 
    double y=1/x; 
-  cout << "x=a/b="<< x << "   y=1/x="<<y<<endl; 
+  cout << "x=a/b="<< x << "   y=1/x="<<y<<"  x*y=" <<x*y<<endl; 
     try {
           x= sqrt(a);
           c = a/b;  // anomalous behavior of that program line for clang compiler? No! It throws "Floating point exception (core dumped)"!  
