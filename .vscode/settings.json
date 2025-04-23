@@ -1,0 +1,17 @@
+{
+    "liveshare.allowGuestTaskControl": true,
+    "liveshare.allowGuestDebugControl": true,
+    "liveshare.anonymousGuestApproval": "accept",
+    "liveshare.languages.allowGuestCommandControl": true,
+    "liveshare.notebooks.allowGuestExecuteCells": true,
+    "liveshare.publishWorkspaceInfo": true,
+    "files.associations": {
+        "ostream": "cpp",
+        "iostream": "cpp",
+        "chrono": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "algorithm": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
