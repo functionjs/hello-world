@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client</title>
+    <style>
+      h1 {color: blue;}   
+      button {color: green;}
+      #myfactorial {color: blue;}
+      div {color: darkgreen;}
+    </style>    
+</head>
+<body>
+    <h1>Client Page</h1>
+    <button onclick="fetchData()">Get Message</button>
+    <br>
+    <button id=myclientfactorial onclick="evaluateFactorialonClient()">Factorial on Client (browser)</button>
+    <input id=mynumber value="5">
+    <br>
+    <button id=myserverfactorial onclick="evaluateFactorialonServer()">Factorial on Server (node)</button>
+    <input id=mynumberforserver value="5">
+    <div id=myresult>...</div>
+
+    <script>
+        ////////////////////////////////----------------------
+        async function fetchData() {
+            try {
+                const response = await fetch('/api');
+                  const data = await response.text();
+                   myresult.textContent = data;
+                   console.log("At client time "+Date.now() + "ms: "+ data)
+            } catch (error) {
+                             console.error('Error:', error);
+                            }
+        }
+
+            // Factorial calculation function on Client
+            let factorial =  (n) => {
+                                     if (n < 0) return NaN;
+                                     if (n === 0 || n === 1) return 1;
+
+                                      return n * factorial(n - 1);
+                                    }
+        ////////////////////////////////                            
+        function evaluateFactorialonClient(){
+            console.log("evaluateFactorialonClient()")
+            let n = parseInt(mynumber.value)
+             let t0=performance.now()
+              let f =  factorial(n)
+               let t1=performance.now()
+                 myresult.innerHTML = "factorial of "+ n + " is " +f  + " <br> calculation time="+ (t1-t0).toFixed(1) + " microsec" 
+        }
+
+        ////////////////////////////////----------------------------                            
+        async function evaluateFactorialonServer(){
+             console.log("evaluateFactorialonServer()")
+              let n = parseInt(mynumberforserver.value)
+               let t0=performance.now()
+                const response = await fetch('/factorial/'+n);
+                 let t1=performance.now()
+                  const f = await response.text();
+                   myresult.innerHTML = "factorial from Server of "+ n + " is " +f + " <br> calculation and fetching time="+ (t1-t0).toFixed(1) + " microsec" 
+                    console.log(myresult.innerHTML)
+        }
+    </script>
+</body>
+</html>

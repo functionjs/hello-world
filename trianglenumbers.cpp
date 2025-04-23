@@ -9,7 +9,8 @@ const digit base=10;
  using Num = vector<digit>;
   using constNum = const Num;
   
-
+int MyVar;
+int MyVar1;
 
  
  // DRY = Don't Repeat Yourself
@@ -53,14 +54,19 @@ const digit base=10;
                        }    
                          return R; 
         } 
-    
     Num operator+(const digit x,const Num Q){ return add_D(Q,x); }    
-    Num operator+(const Num Q, const digit x){ return add_D(Q,x); }
+    Num operator+(const Num &Q, const digit x){ return add_D(Q,x); }
 
-        Num add(const Num Q, const Num P){  // R[] = Q[]+ P[] ; add to long number Q[] long number P[] and return result R[]
+        Num add(const Num &Q, const Num &P){  // R[] = Q[]+ P[] ; add to long number Q[] long number P[] and return result R[]
                                              Num R(Q);
-                                             num N= Q.size();
-                                              R.resize(N); 
+                                             num M = Q.size();
+                                             num N = P.size();
+                                             
+                                              //R.resize(N); 
+                                             //cout << "\n add: Q=";rprint(Q);
+                                             //cout << "\n add: P=";rprint(P);
+                                             //cout << "\n add: R(Q)=";rprint(R);
+                                             // cout << endl; 
                                              digit carry=0;
                                                for(int i=0; i<N; i++)
                                                {
@@ -72,9 +78,12 @@ const digit base=10;
                                                                  } 
                                                         else       carry=0;     
                                                }
+                                              // cout << "\n add: R=Q+P=";rprint(R);
+                                              //  cout << endl; 
                                                 return R;
         }
     Num operator+(const Num Q, const Num P){ return add(Q,P);}      
+
 
      using D2 = pair<digit,digit>;
             D2 multDigits(const digit a, const digit b){ //multiply two digits a,b and return p(least digit of product), q(major digit of product == carry))
@@ -100,9 +109,74 @@ const digit base=10;
                                         //R = R+C;
                                         return R+C;
         }
+        Num operator*(const Num Q, const digit x) {return multD(Q,x);}
+        Num operator*(const digit x, const Num Q) {return multD(Q,x);}
+
+            Num copyWithShift(const Num P, const int shift=0){//Q[] <---shift--- P[]
+                              num N = P.size(); 
+                               num M = N +shift;
+                              Num Q;
+                                Q.resize(M, 0);     
+                                 for(int i=N-1; i>=0; i--) Q[i+shift] = P[i];
+                                 //cout << "\n copyWithShift (shift="<<shift<<") before return : Q=";rprint(Q);
+                                  return Q;
+            }
+        Num mult(const Num Q, const Num P){  // Q[] *= P[]
+                                    num M = Q.size();
+                                    num N = P.size();
+                                    cout << "\n mult: Q=";rprint(Q);
+                                    cout << endl;
+                                    /*
+                                    
+                                    cout << "\n mult: P=";rprint(P);
+                                    cout << "\n mult: Q.size()="<<M;
+                                    cout << "\n mult: P.size()="<<N<<endl;
+                                    */
+                                     num K = M + N;
+                                    Num W(Q); //W[] -- work array (accumulator) for long multiplication
+                                          W.resize(K);
+                                    /*      
+                                    cout << "\n mult: W=";rprint(W);                                          
+                                    cout << endl;
+                                    */
+                                    Num U; //U[] -- additional work array for long multiplication
+                                     
+                                     W = W*P[0] ;        //W[]*=P[0]  -- initial multiplication of W[] by P[0]  
+                                     cout << "\n mult: W_0 = W*"<< P[0] <<"=";rprint(W);                                          
+                                      for(int i=1; i<N; i++) {
+                                          U = copyWithShift(Q, i);    //U[] = (Q[] shifted by i digits)
+                                          cout << "\n mult: U=copyWithShift(Q,"<< i <<")=";rprint(U);                                          
+                                           
+                                           U = U*P[i];           //U[]*=P[i] -- multiplication of U[] by digit P[i]
+                                            cout << "\n mult:  U = U*"<< P[i] <<"=";rprint(U);                                          
+                                            cout << "\n mult: before accumaluation W_"<<i<<" = ";rprint(W);                                          
+                                            W = W + U;                // W[]+=U[] -- accumulation of multiplication results
+                                            cout << "\n mult: W_"<<i<<" = W+=U =";rprint(W);                                          
+                                       }
+                                       cout << endl;
+                                       if(W[K-1]==0)W.resize(K-1);
+                                        return W ;          // resulted W[]
+         }
+        
+
 
 int main(){
+    cout << "MyVar ="<<MyVar<<endl; 
+    cout << "MyVar1="<<MyVar1<<endl; 
+    cout << " &MyVar="<<&MyVar<<endl; 
+    cout << "&MyVar1="<<&MyVar1<<endl; 
+    int MyVarinmain;
+    int MyVar1inmain;
+    cout << "MyVarinmain="<<MyVarinmain<<endl; 
+    cout << "MyVar1inmain="<<MyVar1inmain<<endl; 
+    cout << "&MyVarinmain="<<&MyVarinmain<<endl; 
+    cout << "&MyVar1inmain="<<&MyVar1inmain<<endl; 
+    int  * MyDynamicVarPointer = new int;
+    cout << "*MyDynamicVarPointer="<<*MyDynamicVarPointer<<endl; 
+    cout << "address of MyDynamicVar="<<MyDynamicVarPointer<<endl; 
+
     cout << "Hello Max from cout! Welcome Github!!!!"<<endl; 
+    return 0; 
     printf("Hello Max from printf()! 123456789 = %x \n", 123456789);
     printf(" char with code %d is char a, char with code 0 is %c and string %s\n", 'a', 0, "a");
     Num V, U, Q;
@@ -137,6 +211,11 @@ int main(){
              cout<<"V = ";rprint(V);
                V = multD(V, 2);
                 cout<<"V*2 = ";rprint(V);
+               V =  2 * V;
+                cout<<"V*2*2 = ";rprint(V);
+                V= mult(U,Q);
+                 cout<<"U*Q= ";rprint(V);
+                 //1993005
 
      /*
       printf("size of v is %ld \n",v.size() );
