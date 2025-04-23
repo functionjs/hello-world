@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+ <head>
+     <title>Rock Scissors Paper</title>
+     <link rel="stylesheet" href="style.css">
+ </head>
+
+ <body>
+    <div class="settings">
+        <input type="text" id="playerName" placeholder="Enter your name">
+        <br>
+        <br>
+        <label id="labelRounds">Rounds: </label>
+         <input type="number" id="totalRounds" value="5" min="1" max="10">
+         <br>
+          <label id="labelBotStrength">Bot Strength: </label>
+            <select id="botStrength">
+                <option value="0">Weakest</option>
+                <option value="1">Medium</option>
+                <option value="2">Strongest</option>
+            </select>
+
+            <br>
+            <br>
+
+            <center>
+            <button id="startGame" onclick="startGame()">Start Game</button> 
+            </center>
+
+    </div>
+
+    <div class="game" style="display: none;">
+        <div class="choices">
+            <button onclick="play('rock')">Rock</button>
+             <button onclick="play('scissors')">Scissors</button>
+              <button onclick="play('paper')">Paper</button>
+        </div>
+        
+        <div id="botChoice">...</div>
+        <div id="result">?</div>
+        
+        <div class="scores">
+            <div>Player Wins: <span id="playerScore">0</span></div>
+            <div>Bot    Wins: <span id="botScore">0</span></div>
+            <div>Rounds Left: <span id="roundsLeft">0</span></div>
+        </div>
+    </div>
+     <pre id="myconsole">
+        ....
+     </pre>     
+    <script src="script.js"></script>
+ </body>
+</html>

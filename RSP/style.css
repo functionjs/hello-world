@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border-radius: 10px;
+}
+
+.settings, .game {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+}
+.game {background-color: cadetblue;
+       display: flex;
+      }
+
+.choices {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    color:red;border-color:red;
+}
+
+.scores {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+#botChoice, #result {
+    margin: 10px 0;
+    font-weight: bold;
+     color: rgb(149, 202, 149);
+     
+}
+#playerName {border-radius: 10px;color:rgb(32, 17, 233);border-color:rgb(137, 126, 243);}
+#labelRounds {color:rgb(16, 102, 44);}
+#totalRounds {width: 30px; border-radius: 10px;color:rgb(16, 102, 44);border-color:rgb(98, 245, 130);padding: 0px; text-align:center;}
+#labelBotStrength{color:rgb(92, 8, 60);}
+#botStrength {border-radius: 10px;color:rgb(92, 8, 60);border-color:rgb(235, 26, 189);}
+#result {color: rgb(235, 26, 189); 
+         transition: 2s ease-in-out; 
+         animation: rotate 2s ;}
+
+         @keyframes rotate {
+            0% {
+              rotate: 0deg;
+            }
+            100% {
+              rotate: 360deg;
+            }
+          }         
+ #myconsole {color: green;}         

@@ -7,6 +7,10 @@ using num = int;
 using digit=int;
 const digit base=10;
  using Num = vector<digit>;
+  using constNum = const Num;
+  
+
+
  
  // DRY = Don't Repeat Yourself
      void print(Num R, num n=0){
@@ -39,42 +43,79 @@ const digit base=10;
         Num add_D(const Num Q, const digit x){// R[]= Q[] + x; add to long number Q[] digit x and return result R[]
                      Num R(Q);
                      num N= Q.size();
-                      R.resize(N+1); 
                       R[0] += x;
                        for (int i=0; i<N;++i) {
                             if(R[i]>=base){
                                             R[i] -= base;
-                                            R[i+1] += 1;  
+                                            if(i==N-1){R.resize(N+1);}
+                                             R[i+1] += 1;  
                             } else break; 
                        }    
                          return R; 
         } 
+    
+    Num operator+(const digit x,const Num Q){ return add_D(Q,x); }    
     Num operator+(const Num Q, const digit x){ return add_D(Q,x); }
 
         Num add(const Num Q, const Num P){  // R[] = Q[]+ P[] ; add to long number Q[] long number P[] and return result R[]
                                              Num R(Q);
                                              num N= Q.size();
-                                              R.resize(N+1); 
+                                              R.resize(N); 
                                              digit carry=0;
-                                              for(int i=0; i<N; i++)
-                                              {
-                                                R[i] += (P[i]+carry);
-                                                 if(R[i]>=base){
-                                                                 carry=1;
-                                                                 R[i] -= base;
-                                                                } 
-                                                       else       carry=0;     
-                                              }
+                                               for(int i=0; i<N; i++)
+                                               {
+                                                 R[i] += (P[i]+carry);
+                                                  if(R[i]>=base){
+                                                                  if(i==N-1){R.resize(N+1); R[N]=1;}
+                                                                  carry=1;
+                                                                  R[i] -= base;
+                                                                 } 
+                                                        else       carry=0;     
+                                               }
                                                 return R;
         }
     Num operator+(const Num Q, const Num P){ return add(Q,P);}      
+
+     using D2 = pair<digit,digit>;
+            D2 multDigits(const digit a, const digit b){ //multiply two digits a,b and return p(least digit of product), q(major digit of product == carry))
+                                                         digit p, q;   
+                                                         num x = a*b;
+                                                          p = x%base;
+                                                          q = x/base;
+                                                           return make_pair(p,q);
+            }
+        Num multD(const Num Q, const digit x){// Q[] *= x; multiply Q[] by digit x
+                                    num N=Q.size();
+                                     Num C;
+                                      C.resize(N,0);
+                                    Num R(Q);
+                                    
+                                    D2 t;
+                                     for(int i=0; i<N; i++) {
+                                      t = multDigits(Q[i],x);
+                                       R[i]=t.first;
+                                        if(i==N-1 and t.second>0){R.resize(N+1); C.resize(N+1);}
+                                         C[i+1]=t.second;
+                                     }
+                                        //R = R+C;
+                                        return R+C;
+        }
 
 int main(){
     cout << "Hello Max from cout! Welcome Github!!!!"<<endl; 
     printf("Hello Max from printf()! 123456789 = %x \n", 123456789);
     printf(" char with code %d is char a, char with code 0 is %c and string %s\n", 'a', 0, "a");
     Num V, U, Q;
-     V = {9,9,9};
+   /* 
+    constNum c = {1, 2, 3};
+              c[1] = 5;
+   const int x = 1;
+              x =2;     
+               x++;
+                cout << "x="<<x<<endl;
+               rprint(c);
+   */               
+     V = {1,9,9};
 
       try {
                V.at(1000)=7; //Safe code, but slow! 
@@ -82,15 +123,20 @@ int main(){
       }
        catch(exception& ex) {
         cout <<  ex.what() << endl;
-    }
+       }
      
       cout<<"V = ";rprint(V);
        V = add_D(V, 5);
        cout<<" V = add_D(V, 5) =  ";rprint(V);
-        U = V + 3;    
+        U = 3 + V;    
          cout<<"  U = V + 3 = ";rprint(U);
          Q = U + V; 
           cout<<"   Q = U + V = ";rprint(Q);
+           D2 test = multDigits(9,9);
+            cout<<"9*9 = "<<test.second<< " " <<test.first <<endl;                
+             cout<<"V = ";rprint(V);
+               V = multD(V, 2);
+                cout<<"V*2 = ";rprint(V);
 
      /*
       printf("size of v is %ld \n",v.size() );
