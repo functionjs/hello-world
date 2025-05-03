@@ -1,4 +1,4 @@
-//USACO Ooh Milk! ( march 22 2025)
+//USACO Ooh Milk! ( may 03/0/2025)
 // N D
 // A B
 // m1 ... mN
