@@ -22,4 +22,8 @@
 
 #python httphelloworld/usacoOM.py < httphelloworld/usacoOM.in
 
-g++ httphelloworld/usacoOM1.cpp -std=c++2a -fmax-errors=1 -Wall && ./a.out < httphelloworld/usacoOM.in
+#g++ httphelloworld/usacoOM1.cpp -std=c++17 -fmax-errors=1 -Wall -fsanitize=bounds && ./a.out < httphelloworld/usacoOM.in
+#g++ httphelloworld/usacoOM1.cpp -std=c++17 -fmax-errors=1 -Wall -fsanitize=address,undefined -g  && ./a.out < httphelloworld/usacoOM.in
+#clang++ httphelloworld/usacoOM1.cpp -std=c++17 -fmax-errors=1 -Wall -fsanitize=memory -g && ./a.out < httphelloworld/usacoOM.in
+#clang++ httphelloworld/usacoOM1.cpp -std=c++17 -fmax-errors=1 -Wall -g && ./a.out < httphelloworld/usacoOM.in
+g++ httphelloworld/usacoOM1.cpp -std=c++17 -fmax-errors=1 -Wall -g && ./a.out < httphelloworld/usacoOM.in
