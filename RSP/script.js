@@ -7,22 +7,39 @@ var botStrength = 0;
 var gamesCount = 0;
 var playerHistory = [];
 
+
+const gameSettings = document.querySelector('.settings'); 
+const gamePanel= document.querySelector('.game')
+
+const playerNameTag = document.getElementById('playerName')
+const totalRoundsTag = document.getElementById('totalRounds')
+const botStrengthTag = document.getElementById('botStrength')
+
+const botChoiceTag = document.getElementById('botChoice')
+const resultTag    = document.getElementById('result')    
+
+const playerScoreTag = document.getElementById('playerScore')
+const botScoreTag = document.getElementById('botScore')
+const roundsLeftTag = document.getElementById('roundsLeft')
+
+
         ///////////////////////#startGame onclick()
         function startGame() {
-            playerName = document.getElementById('playerName').value;
-            totalRounds = parseInt(document.getElementById('totalRounds').value);
-            botStrength = parseInt(document.getElementById('botStrength').value);
+            playerName  = playerNameTag.value;
+            totalRounds = parseInt(totalRoundsTag.value);
+            botStrength = parseInt(botStrengthTag.value);
             
             // Load player history from localStorage
             const savedData = localStorage.getItem(playerName);
              if (savedData) {
                 playerHistory = JSON.parse(savedData);
              }
-            
-             document.getElementById('botChoice').textContent = `Bot chose: ...`; 
-             document.getElementById('result').textContent = "?";
-             document.querySelector('.game').style.display = 'block';
-             document.querySelector('.settings').style.display = 'none';
+              
+             botChoiceTag.textContent = `Bot chose: ...`; 
+             resultTag.textContent = "?";
+             gamePanel.style.visibility = 'visible';
+             document.querySelector('.game').style.visibility = 'visible';
+             gameSettings.style.visibility = 'hidden';
              roundsLeft = totalRounds;
               updateScores();
         }
@@ -59,8 +76,9 @@ const choices = ['rock 🪨', 'paper 📰', 'scissors ✂'];
                // Save player choice for strongest bot
                playerHistory.push(playerChoice);
                 const botChoice = getBotChoice();
-                 document.getElementById('botChoice').textContent = `Bot chose: ${botChoice}`;
-                 document.getElementById('botChoice').style.transform += 'rotateX(360deg)';
+                let botChoiceTag = document.getElementById('botChoice')
+                 botChoiceTag.textContent = `Bot chose: ${botChoice}`;
+                  botChoiceTag.style.transform += 'rotateX(360deg)';
              
               // Determine winner
             let result = 'In round '+ (totalRounds - roundsLeft) + " ";
@@ -79,37 +97,45 @@ const choices = ['rock 🪨', 'paper 📰', 'scissors ✂'];
                        result += '🤖 Bot wins!';
                        botScore++;
                       }
-               document.getElementById('result').textContent = result;
-               document.getElementById('result').style.transform += 'rotate(360deg)';
+               //let resultTag=document.getElementById('result')       
+                resultTag.textContent = result;
+                resultTag.style.transform += 'rotate(360deg)';
                 
               updateScores();
               
-           
-               // Check game end
-               if (roundsLeft === 0) {
-                  // Save player history to localStorage
-                  localStorage.setItem(playerName, JSON.stringify(playerHistory));
-                  //Increase count of Games                 
-                  gamesCount++;
-                   let message = 'Game '+gamesCount+": ";
-                     if (playerScore > botScore)message += `Congratulations ${playerName}! You (👧) won the game!`;
-                     else if (botScore > playerScore)message += 'Bot (🤖) wins the game! Better luck next time!';
-                          else message += "It's a draw!";
-                            
-                      myconsole.innerHTML += message+"\n";
-                      //alert(message);
-                      document.querySelector('.settings').style.display = 'block';
-                      document.querySelector('.settings').style.transform += 'rotateX(360deg)';
-                      // Reset game
-                      playerScore = botScore = 0;
-                      document.querySelector('.game').style.transform += 'rotateX(360deg)';
-                      //document.querySelector('.game').style.display = 'none';
-                      updateScores();
-                }
-        }
+              // Check game end
+              if (roundsLeft === 0)
+                  setTimeout(currentGameEnd, 3000);
+                  function currentGameEnd(){
+                                            // Save player history to localStorage
+                                            localStorage.setItem(playerName, JSON.stringify(playerHistory));
+                                            //Increase count of Games                 
+                                            gamesCount++;
+                                             let message = 'Game '+gamesCount+": ";
+                                              if (playerScore > botScore)message += `Congratulations ${playerName}! You (👧) won the game!`;
+                                              else if (botScore > playerScore)message += 'Bot (🤖) wins the game! Better luck next time!';
+                                                   else message += "It's a draw!";
+                                             
+                                               myconsole.innerHTML += message+"\n";
+                                                setTimeout(displayRotatedGameSettings, 1000);
+                                                  function displayRotatedGameSettings(){
+                                                            //let gameSettings=document.querySelector('.settings'); 
+                                                             gameSettings.style.visibility = 'visible';
+                                                             gameSettings.style.transform += 'rotateX(360deg)';
+                                                  }
+                                               
+                                               // Reset game
+                                               playerScore = botScore = 0;
+                                               //let gamePanel= document.querySelector('.game')
+                                               // gamePanel.style.transform += 'rotateX(360deg)';
+                                               gamePanel.style.visibility = 'hidden';
+                                                updateScores();
+               
+                 }
+        }       
 
             function updateScores() {
-                document.getElementById('playerScore').textContent = playerScore;
-                document.getElementById('botScore').textContent = botScore;
-                document.getElementById('roundsLeft').textContent = roundsLeft;
+                playerScoreTag.textContent = playerScore;
+                botScoreTag.textContent = botScore;
+                roundsLeftTag.textContent = roundsLeft;
             }
