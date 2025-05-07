@@ -87,26 +87,29 @@ var choices = ['rock 🪨', 'paper 📰', 'scissors ✂'];
                  botChoiceTag.textContent = `Bot chose: ${botChoice}`;
                   botChoiceTag.style.transform += 'rotateX(360deg)';
              
-              // Determine winner
-            let result = 'In round '+ (totalRounds - roundsLeft) + " ";
-              if (playerChoice === botChoice) {
-                result += '⚖ Draw!';
-              }
-              else if(
-                       (playerChoice === choices[0] && botChoice === choices[1]) ||
-                       (playerChoice === choices[1] && botChoice === choices[2])    ||
-                       (playerChoice === choices[2] && botChoice === choices[0])
-                     ){
-                       result += '👧 Player wins!';
-                       playerScore++;
-                      }
-                 else {
-                       result += '🤖 Bot wins!';
-                       botScore++;
-                      }
-               //let resultTag=document.getElementById('result')       
-                resultTag.textContent = result;
-                resultTag.style.transform += 'rotate(360deg)';
+
+                 // Determine winner of round
+                 setTimeout(determineWinnerOfRound, 2000);
+                   function determineWinnerOfRound(){
+                            let result = 'In round '+ (totalRounds - roundsLeft) + " ";
+                              if (playerChoice === botChoice) {
+                                result += '⚖ Draw!';
+                              }
+                              else if(
+                                       (playerChoice === choices[0] && botChoice === choices[1]) ||
+                                       (playerChoice === choices[1] && botChoice === choices[2])    ||
+                                       (playerChoice === choices[2] && botChoice === choices[0])
+                                     ){
+                                       result += '👧 Player wins!';
+                                       playerScore++;
+                                      }
+                                 else {
+                                       result += '🤖 Bot wins!';
+                                       botScore++;
+                                      }
+                               resultTag.textContent = result;
+                                resultTag.style.transform += 'rotate(360deg)';
+                   } 
                 
               updateScores();
               
