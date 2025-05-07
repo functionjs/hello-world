@@ -31,9 +31,12 @@ const roundsLeftTag = document.getElementById('roundsLeft')
             
             // Load player history from localStorage
             const savedData = localStorage.getItem(playerName);
+            clearHistoryTag.innerHTML = ""
              if (savedData) {
                 playerHistory = JSON.parse(savedData);
-             }
+                if(playerHistory[0])
+                   clearHistoryTag.innerHTML = "You can  clear Your moves history ... ";
+             }else 
               
              botChoiceTag.textContent = `Bot chose: ...`; 
              resultTag.textContent = "?";
@@ -43,8 +46,13 @@ const roundsLeftTag = document.getElementById('roundsLeft')
              roundsLeft = totalRounds;
               updateScores();
         }
+             function clearHistory(){
+               // Clear player history in localStorage
+                localStorage.setItem(playerName, JSON.stringify([]));
+                clearHistoryTag.innerHTML = "Your moves history cleared 🧹";
+             } 
 
-const choices = ['rock 🪨', 'paper 📰', 'scissors ✂'];
+var choices = ['rock 🪨', 'paper 📰', 'scissors ✂'];
         ///////////////////
         function getBotChoice() {
            let random = Math.floor(Math.random() * 3); 
