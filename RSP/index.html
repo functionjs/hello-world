@@ -2,7 +2,7 @@
 <html>
 
  <head>
-     <title>Rock Scissors Paper</title>
+     <title>Rock Scissors Paper Version 1.0</title>
      <link rel="stylesheet" href="style.css">
  </head>
 
@@ -16,9 +16,9 @@
          <br>
           <label id="labelBotStrength">Bot Strength: </label>
             <select id="botStrength">
-                <option value="0">Weakest</option>
-                <option value="1">Medium</option>
-                <option value="2">Strongest</option>
+                <option value="0"                   >Weakest</option>
+                <option value="1"selected="selected">Medium</option>
+                <option value="2"                   >Strongest</option>
             </select>
 
             <br>
@@ -32,9 +32,9 @@
 
     <div class="game" style="display: none;">
         <div class="choices">
-            <button onclick="play('rock')">Rock</button>
-             <button onclick="play('scissors')">Scissors</button>
-              <button onclick="play('paper')">Paper</button>
+            <button onclick="play('rock 🪨')">Rock 🪨</button>
+             <button onclick="play('scissors ✂')">Scissors <b>✂</b></button>
+              <button onclick="play('paper 📰')">Paper 📰</button>
         </div>
         
         <div id="botChoice">...</div>
@@ -46,9 +46,7 @@
             <div>Rounds Left: <span id="roundsLeft">0</span></div>
         </div>
     </div>
-     <pre id="myconsole">
-        ....
-     </pre>     
+     <pre id="myconsole"></pre>     
     <script src="script.js"></script>
  </body>
 </html>
