@@ -23,7 +23,7 @@ const botScoreTag = document.getElementById('botScore')
 const roundsLeftTag = document.getElementById('roundsLeft')
 
 
-        ///////////////////////#startGame onclick()
+        ///////////////////////#startGame button onclick
         function startGame() {
             playerName  = playerNameTag.value;
             totalRounds = parseInt(totalRoundsTag.value);
@@ -45,48 +45,47 @@ const roundsLeftTag = document.getElementById('roundsLeft')
              roundsLeft = totalRounds;
               updateScores();
         }
-             function clearHistory(){
-               // Clear player history in localStorage
-                localStorage.setItem(playerName, JSON.stringify([]));
-                clearHistoryTag.innerHTML = "Your moves history cleared 🧹";
-             } 
+        /////////////////////#clearHistoryTag onclick
+        function clearHistory(){
+          // Clear player history in localStorage
+           localStorage.setItem(playerName, JSON.stringify([]));
+           clearHistoryTag.innerHTML = "Your moves history cleared 🧹";
+        } 
 
 var choices = ['rock 🪨', 'paper 📰', 'scissors ✂'];
-        ///////////////////
-        function getBotChoice() {
-           let random = Math.floor(Math.random() * 3); 
-            if (botStrength === 0)return choices[0];; // Weakest bot - always chooses rock
-            if (botStrength === 1)return choices[random]; // Medium bot - random choice
-            //if (botStrength === 2) Strongest bot
-            if (playerHistory.length === 0) return choices[random]; //if history is empty then Strongest bot uses player random choice
-            
-            // Strongest bot calculate the most frequent player choice
-            const counts = {rock: 0, paper: 0, scissors: 0};
-             playerHistory.forEach(choice => counts[choice]++);
-             //console.log("before sorting Object.entries(counts)");
-             //console.dir(Object.entries(counts));
-              const mostFrequent = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
-               //console.log("after sorting Object.entries(counts)");
-               //console.dir(Object.entries(counts));
-                //console.log("mostFrequent = ",mostFrequent)
-              // Choose counter to most frequent
-               return {
-                        rock: choices[2],
-                        paper: choices[1],
-                        scissors: choices[0]
-                      }[mostFrequent];
-        }
-        /////////////////////////////
+              function getBotChoice() {
+                 let random = Math.floor(Math.random() * 3); 
+                  if (botStrength === 0)return choices[0];; // Weakest bot - always chooses rock
+                  if (botStrength === 1)return choices[random]; // Medium bot - random choice
+                  //if (botStrength === 2) Strongest bot
+                  if (playerHistory.length === 0) return choices[random]; //if history is empty then Strongest bot uses player random choice
+                  
+                  // Strongest bot calculate the most frequent player choice
+                  const counts = {rock: 0, paper: 0, scissors: 0};
+                   playerHistory.forEach(choice => counts[choice]++);
+                   //console.log("before sorting Object.entries(counts)");
+                   //console.dir(Object.entries(counts));
+                    const mostFrequent = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+                     //console.log("after sorting Object.entries(counts)");
+                     //console.dir(Object.entries(counts));
+                      //console.log("mostFrequent = ",mostFrequent)
+                    // Choose counter to most frequent
+                     return {
+                              rock: choices[2],
+                              paper: choices[1],
+                              scissors: choices[0]
+                            }[mostFrequent];
+              }
+        /////////////////////////////buttons of things onclick
         function play(playerChoice) {
             if (roundsLeft <= 0) return;
-            roundsLeft--;
+          
+               roundsLeft--;
                // Save player choice for strongest bot
                playerHistory.push(playerChoice);
                 const botChoice = getBotChoice();
-                //let botChoiceTag = document.getElementById('botChoice')
                  botChoiceTag.textContent = `Bot chose: ${botChoice}`;
                   botChoiceTag.style.transform += 'rotateX(360deg)';
-             
 
                  // Determine winner of round
                  setTimeout(determineWinnerOfRound, 2000);
@@ -115,33 +114,33 @@ var choices = ['rock 🪨', 'paper 📰', 'scissors ✂'];
               
               // Check game end
               if (roundsLeft === 0)
-                  setTimeout(currentGameEnd, 3000);
-                  function currentGameEnd(){
-                                            // Save player history to localStorage
-                                            localStorage.setItem(playerName, JSON.stringify(playerHistory));
-                                            //Increase count of Games                 
-                                            gamesCount++;
-                                             let message = 'Game '+gamesCount+": ";
-                                              if (playerScore > botScore)message += `Congratulations ${playerName}! You (👧) won the game!`;
-                                              else if (botScore > playerScore)message += 'Bot (🤖) wins the game! Better luck next time!';
-                                                   else message += "It's a draw!";
-                                             
-                                               myconsole.innerHTML += message+"\n";
-                                                setTimeout(displayRotatedGameSettings, 1000);
-                                                  function displayRotatedGameSettings(){
-                                                            //let gameSettings=document.querySelector('.settings'); 
-                                                             gameSettings.style.visibility = 'visible';
-                                                             gameSettings.style.transform += 'rotateX(360deg)';
-                                                  }
+                  setTimeout(checkCurrentGameEnd, 3000);
+                    function checkCurrentGameEnd(){
+                                              // Save player history to localStorage
+                                              localStorage.setItem(playerName, JSON.stringify(playerHistory));
+                                              //Increase count of Games                 
+                                              gamesCount++;
+                                               let message = 'Game '+gamesCount+": ";
+                                                if (playerScore > botScore)message += `Congratulations ${playerName}! You (👧) won the game!`;
+                                                else if (botScore > playerScore)message += 'Bot (🤖) wins the game! Better luck next time!';
+                                                     else message += "It's a draw!";
                                                
-                                               // Reset game
-                                               playerScore = botScore = 0;
-                                               //let gamePanel= document.querySelector('.game')
-                                               // gamePanel.style.transform += 'rotateX(360deg)';
-                                               gamePanel.style.visibility = 'hidden';
-                                                updateScores();
-               
-                 }
+                                                 myconsole.innerHTML += message+"\n";
+                                                  setTimeout(displayRotatedGameSettings, 1000);
+                                                    function displayRotatedGameSettings(){
+                                                              //let gameSettings=document.querySelector('.settings'); 
+                                                               gameSettings.style.visibility = 'visible';
+                                                               gameSettings.style.transform += 'rotateX(360deg)';
+                                                    }
+                                                 
+                                                 // Reset game
+                                                 playerScore = botScore = 0;
+                                                 //let gamePanel= document.querySelector('.game')
+                                                 // gamePanel.style.transform += 'rotateX(360deg)';
+                                                 gamePanel.style.visibility = 'hidden';
+                                                  updateScores();
+                 
+                    }
         }       
 
             function updateScores() {
