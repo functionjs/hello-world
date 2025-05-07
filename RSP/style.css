@@ -14,8 +14,11 @@ body {
     transition: 2s ease-in-out; 
     animation: rotate 2s ;
 }
-.game {background-color: cadetblue;
-       display: flex;
+ .settings {visibility: visible;}
+
+ .game {background-color: cadetblue;
+        display: block;
+        visibility: hidden;
       }
 
 .choices {
