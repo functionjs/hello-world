@@ -36,12 +36,11 @@ const roundsLeftTag = document.getElementById('roundsLeft')
                 playerHistory = JSON.parse(savedData);
                 if(playerHistory[0])
                    clearHistoryTag.innerHTML = "You can  clear Your moves history ... ";
-             }else 
+             } 
               
              botChoiceTag.textContent = `Bot chose: ...`; 
              resultTag.textContent = "?";
              gamePanel.style.visibility = 'visible';
-             document.querySelector('.game').style.visibility = 'visible';
              gameSettings.style.visibility = 'hidden';
              roundsLeft = totalRounds;
               updateScores();
@@ -84,7 +83,7 @@ var choices = ['rock 🪨', 'paper 📰', 'scissors ✂'];
                // Save player choice for strongest bot
                playerHistory.push(playerChoice);
                 const botChoice = getBotChoice();
-                let botChoiceTag = document.getElementById('botChoice')
+                //let botChoiceTag = document.getElementById('botChoice')
                  botChoiceTag.textContent = `Bot chose: ${botChoice}`;
                   botChoiceTag.style.transform += 'rotateX(360deg)';
              
